@@ -14,14 +14,20 @@ var result={
     "status":'200',
     "message":'success',
 }
- db.query('select * from person', function (err, rows) {
-        if (err) throw err;
-            return result.data=rows;    
+ 
+router.get('/123', function (req, res, next) {
+	db.query('select * from person', function (err, rows) {
+        if (err){
+        	 throw err;
+        	}else{
+        		 result.data=rows; 
+        		
+   				res.json(result)
+        	}
+              
         
     })
-router.get('/123', function (req, res, next) {
-   res.status(200);
-   res.json(result)
+   
    
 });
 module.exports = router;
