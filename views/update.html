@@ -8,9 +8,15 @@
     <div style="width: 800px;margin: auto;">
         <form action="/persons/update" method="post">
             <input type="hidden" value="<%= datas[0].id %>" name="id">
-            姓名：<input type="text" name="name" value="<%= datas[0].name %>">
-            年龄：<input type="text" name="age" value="<%= datas[0].age %>">
-            职业：<input type="text" name="professional" value="<%= datas[0].professional %>">
+            书名：<input type="text" name="name" value="<%= datas[0].name %>">
+            类型：<input type="text" name="type" value="<%= datas[0].type %>">
+            单价：<input type="text" name="unitPrice" value="<%= datas[0].unitPrice %>">
+            单量：<input type="text" name="dafaultnm" value="<%= datas[0].dafaultnm %>">
+            总量：<input type="text" name="allnm" value="<%= datas[0].allnm %>">
+            标题：<input type="text" name="title" value="<%= datas[0].title %>">
+             图片：<input type="text" name="img" value="<%= datas[0].img %>">
+            简介：<input type="text" name="det" value="<%= datas[0].det %>">
+            
             <input type="submit" value="提交">
         </form>
     </div>

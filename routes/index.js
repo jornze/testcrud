@@ -16,7 +16,7 @@ var result={
 }
  
 router.get('/123', function (req, res, next) {
-	db.query('select * from person', function (err, rows) {
+	db.query('select * from book', function (err, rows) {
         if (err){
         	 throw err;
         	}else{

@@ -12,7 +12,7 @@ var db = require("./db.js");
  * 查询列表页
  */
 router.get('/', function (req, res, next) {
-    db.query('select * from person', function (err, rows) {
+    db.query('select * from book', function (err, rows) {
         console.log(rows);
         if (err) {
             res.render('persons', {title: '人员管理', datas: []});  // this renders "views/persons.html"
@@ -33,10 +33,15 @@ router.get('/add', function (req, res) {
     res.render('add');
 });
 router.post('/add', function (req, res) {
+    var type = req.body.type;
     var name = req.body.name;
-    var age = req.body.age;
-    var professional = req.body.professional;
-    db.query("insert into person(name,age,professional) values('" + name + "'," + age + ",'" + professional + "')", function (err, rows) {
+    var unitPrice = req.body.unitPrice;
+    var dafaultnm = req.body.dafaultnm;
+    var allnm = req.body.allnm;
+    var img = req.body.img;
+    var title = req.body.title;
+    var det = req.body.det;
+    db.query("insert into book(type,name,unitPrice,dafaultnm,allnm,img,title,det) values('" + type + "','" + name + "','" + unitPrice + "','" + dafaultnm + "','" + allnm + "','" + img + "'," + title + ",'" + det + "')", function (err, rows) {
         if (err) {
             res.end('新增失败：' + err);
         } else {
@@ -50,7 +55,7 @@ router.post('/add', function (req, res) {
  */
 router.get('/del/:id', function (req, res) {
     var id = req.params.id;
-    db.query("delete from person where id=" + id, function (err, rows) {
+    db.query("delete from book where id=" + id, function (err, rows) {
         if (err) {
             res.end('删除失败：' + err)
         } else {
@@ -64,7 +69,7 @@ router.get('/del/:id', function (req, res) {
 router.get('/toUpdate/:id', function (req, res) {
     var id = req.params.id;
     console.log(id);
-    db.query("select * from person where id=" + id, function (err, rows) {
+    db.query("select * from book where id=" + id, function (err, rows) {
         if (err) {
             res.end('修改页面跳转失败：' + err);
         } else {
@@ -72,14 +77,19 @@ router.get('/toUpdate/:id', function (req, res) {
         }
     });
 });
-router.post('/update', function (req, res) {
-    var id = req.body.id;
+router.post('/persons/update', function (req, res) {
+     var type = req.body.type;
     var name = req.body.name;
-    var age = req.body.age;
-    var professional = req.body.professional;
-    db.query("update person set name='" + name + "',age='" + age + "',professional= '" + professional + "' where id=" + id, function (err, rows) {
+    var unitPrice = req.body.unitPrice;
+    var dafaultnm = req.body.dafaultnm;
+    var allnm = req.body.allnm;
+    var img = req.body.img;
+    var title = req.body.title;
+    var det = req.body.det;
+    db.query("update book set  type='" + type + "', name='" + name + "', unitPrice='" + unitPrice + "', dafaultnm='" + dafaultnm + "',allnm='" + allnm + "',img='" + img + "',title= '" + title + "', det='" + det + "'where id=" + id, function (err, rows) {
         if (err) {
-            res.end('修改失败：' + err);
+            //res.end('修改失败：' + err);
+            console.log(err);
         } else {
             res.redirect('/persons');
         }
@@ -89,28 +99,33 @@ router.post('/update', function (req, res) {
  * 查询
  */
 router.post('/search', function (req, res) {
+    var type = req.body.s_type;
     var name = req.body.s_name;
-    var age = req.body.s_age;
-    var professional = req.body.s_professional;
+    var allnm = req.body.s_allnm;
+    var title = req.body.s_title;
+    var det = req.body.s_det;
 
-    var sql = "select * from person";
+    var sql = "select * from book";
 
-    if (name) {
+    if (type) {
+        sql += " and type like '%" + type + "%' ";
+    }
+     if (name) {
         sql += " and name like '%" + name + "%' ";
     }
-    if (age) {
+    if (title) {
 
-        sql += " and age=" + age + " ";
+       sql += " and title like '%" + title + "%' ";
     }
-    if (professional) {
-        sql += " and name like '%" + professional + "%' ";
+    if (allnm) {
+        sql += " and allnm like '%" + allnm + "%' ";
     }
     sql = sql.replace("and","where");
     db.query(sql, function (err, rows) {
         if (err) {
             res.end("查询失败：", err)
         } else {
-            res.render("persons", {title: '人员管理', datas: rows, s_name: name, s_age: age});
+            res.render("persons", {title: '人员管理', datas: rows, s_name: name, s_type: type,s_title: title,s_allnm: allnm});
         }
     });
 });
