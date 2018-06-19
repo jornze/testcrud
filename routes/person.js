@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
 //引入数据库包
 var db = require("./db.js");
-
+//update pic
+var upload=multer({
+  dest:'upload/'
+});
 /* GET  listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -32,16 +36,17 @@ router.get('/', function (req, res, next) {
 router.get('/add', function (req, res) {
     res.render('add');
 });
-router.post('/add', function (req, res) {
+router.post('/add', upload.single('img'), function (req, res) {
+    var filepath=req.file.path;
     var type = req.body.type;
     var name = req.body.name;
     var unitPrice = req.body.unitPrice;
     var dafaultnm = req.body.dafaultnm;
     var allnm = req.body.allnm;
-    var img = req.body.img;
+    //var img = req.body.img;
     var title = req.body.title;
     var det = req.body.det;
-    db.query("insert into book(type,name,unitPrice,dafaultnm,allnm,img,title,det) values('" + type + "','" + name + "','" + unitPrice + "','" + dafaultnm + "','" + allnm + "','" + img + "'," + title + ",'" + det + "')", function (err, rows) {
+    db.query("insert into book(type,name,unitPrice,dafaultnm,allnm,img,title,det) values('" + type + "','" + name + "','" + unitPrice + "','" + dafaultnm + "','" + allnm + "','" + filepath + "'," + title + ",'" + det + "')", function (err, rows) {
         if (err) {
             res.end('新增失败：' + err);
         } else {
@@ -77,7 +82,8 @@ router.get('/toUpdate/:id', function (req, res) {
         }
     });
 });
-router.post('/persons/update', function (req, res) {
+router.post('/update', function (req, res) {
+    var id=req.body.id;
      var type = req.body.type;
     var name = req.body.name;
     var unitPrice = req.body.unitPrice;

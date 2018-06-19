@@ -18,6 +18,7 @@
     <div style="">
         <div style="float: left;width:10%;">
             <a href="/persons/add">新增</a>
+            <img src='http://localhost:3000/images/1.png'>
         </div>
         <div style="float: right;width:90%;">
             <form action="/persons/search" method="post">
@@ -56,7 +57,7 @@
             <td><%= book.dafaultnm %></td>
             <td><%= book.allnm %></td>
             <td><%= book.title %></td>
-            <td><%= book.img %></td>
+            <td><img src="<%= book.img %>"</td>
             <td><%= book.det %></td>
            
         </tr>

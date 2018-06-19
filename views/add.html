@@ -5,14 +5,14 @@
     <title>新增页面</title>
 </head>
 <body>
-    <div style="width: 800px;margin: auto;">
-        <form action="/persons/add" method="post">
+    <div style="width: 800px;margin: auto;" >
+        <form action="/persons/add" method="post" enctype="multipart/form-data">
             类型：<input type="text" name="type">
             书名：<input type="text" name="name">
             单价：<input type="text" name="unitPrice">
             单量：<input type="text" name="dafaultnm">
             总量：<input type="text" name="allnm">
-            图片：<input type="text" name="img">
+            图片：<input type="file" name="img">
             标题：<input type="text" name="title">
             详情：<input type="text" name="det">
           

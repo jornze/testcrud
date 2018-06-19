@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var multer = require('multer');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var persons = require('./routes/person');
@@ -21,8 +21,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// 静态资源路径 
 app.use(express.static(path.join(__dirname, 'public')));
-
+// 上传图片路径 
+app.use('upload',express.static('upload'));
 app.use('/', indexRouter);
 app.use('/persons', persons);
 
