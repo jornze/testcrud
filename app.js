@@ -23,8 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // 静态资源路径 
 app.use(express.static(path.join(__dirname, 'public')));
+
 // 上传图片路径 
-app.use('upload',express.static('upload'));
+app.use('public/images',express.static('public/images'));
 app.use('/', indexRouter);
 app.use('/persons', persons);
 

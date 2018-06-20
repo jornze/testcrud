@@ -11,6 +11,10 @@
         table tr:last-child td{border-bottom:solid 1px #ccc;}
         a{text-decoration: none;font-size: 14px;}
         .text{width:150px;}
+        img{
+            display: block;
+            max-width: 60px;
+        }
     </style>
 </head>
 <body>
@@ -18,7 +22,7 @@
     <div style="">
         <div style="float: left;width:10%;">
             <a href="/persons/add">新增</a>
-            <img src='http://localhost:3000/images/1.png'>
+            
         </div>
         <div style="float: right;width:90%;">
             <form action="/persons/search" method="post">
@@ -68,7 +72,7 @@
 <script type="text/javascript">
     
     window.onload=function(){
-        console.log(datas);
+        //console.log(datas);
     }
 </script>
 </body>
